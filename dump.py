@@ -7,10 +7,18 @@ from json import dumps
 from flask_jsonpify import jsonify
 from werkzeug.routing import BaseConverter
 
+# static_url_path="", static_folder="../client/dist/"
 app = Flask(__name__)
 api = Api(app)
 
 CORS(app)
+
+# class RegexConverter(BaseConverter):
+#     def __init__(self, url_map, *items):
+#         super(RegexConverter, self).__init__(url_map)
+#         self.regex = items[0]
+
+# app.url_map.converters['regex'] = RegexConverter
 
 class Accounts(Resource):
     def get(self):
@@ -25,6 +33,10 @@ class Usernames(Resource):
 # Routing
 api.add_resource(Accounts, '/accounts')
 api.add_resource(Usernames, '/accounts/<account_id>') # Route_3
+
+# @app.route("/")
+# def angular():
+#     return send_from_directory("../client/dist", "index.html") 
 
 @app.route("/api")
 def hello():
@@ -56,6 +68,10 @@ def angular(path):
         path = __angular_default_path
     
     return send_from_directory('../client/dist/', path)
+
+# @app.route("/<regex('\w\.(js|css)'):path>")
+# def angular_src(path):
+#     return send_from_directory("../client/dist", path)
 
 if __name__ == '__main__':
     app.run(debug=True)

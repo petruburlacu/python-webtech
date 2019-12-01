@@ -11,3 +11,6 @@ Slate documentation: https://slatedocs.github.io/slate/?javascript#introduction
 Clean Design: https://electronjs.org/
 Get IPv6 address: https://stackoverflow.com/questions/16276913/reliably-get-ipv6-address-in-python
 
+
+Built angular files ATTENTION: manually place ''' type="text/javascript" ''' in the index.html javascript files
+

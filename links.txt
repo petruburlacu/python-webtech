@@ -1,0 +1,15 @@
+# Serving angular application from python server: https://stackoverflow.com/questions/45692749/angular-4-frontend-with-python-flask-backend-how-to-render-simple-index-page
+
+# https://flask.palletsprojects.com/en/1.1.x/quickstart/#static-files
+
+# https://stackoverflow.com/questions/53824239/python-flask-serving-angular-projects-index-html-file
+
+# https://stackoverflow.com/questions/25594893/how-to-enable-cors-in-flask
+
+# https://www.techiediaries.com/flask-angular-tutorial/
+
+# https://www.roytuts.com/python-rest-flask-angularjs-crud/
+
+# http://codezup.com/integrate-angular-with-flask-python-tutorial/
+
+# https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask

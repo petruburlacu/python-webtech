@@ -7,6 +7,7 @@ import { ThemeComponent } from './pages/theme/theme.component';
 
 const routes: Routes = [
   { path: '',   redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: RestrictedComponent },
   { path: 'theme', component: ThemeComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', component: RestrictedComponent }

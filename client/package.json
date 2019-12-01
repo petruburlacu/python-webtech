@@ -4,8 +4,8 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "ng build",
-        "prodBuild": "ng build --prod --base-href /wapplate",
+        "build": "ng build --prod",
+        "prodBuild": "ng build --prod --base-href /wapplate/",
         "test": "jest --coverage --ci",
         "lint": "ng lint",
         "e2e": "ng e2e"
