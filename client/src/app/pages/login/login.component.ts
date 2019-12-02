@@ -8,20 +8,33 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  validateForm: FormGroup;
+  loginForm: FormGroup;
+  registerForm: FormGroup;
+  isLoginForm: boolean = true;
 
   constructor(private fb: FormBuilder) {}
 
 
   ngOnInit() {
-    this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
+    this.loginForm = this.fb.group({
+      name: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      remember: [true]
+    });
+
+    this.registerForm = this.fb.group({
+      name: [null, [Validators.required]],
+      email: [null, [Validators.required]],
       password: [null, [Validators.required]],
       remember: [true]
     });
   }
 
-  submitForm(): void {
-    console.log('Submit button clicked');
+  submitForm(input): void {
+    console.log(input);
+  }
+
+  switchAuthentication(): void {
+    this.isLoginForm = !this.isLoginForm;
   }
 }

@@ -1,19 +1,16 @@
 <!-- https://auth0.com/blog/angular-2-authentication/ -->
 
-
-
-
 <div class="container" style="margin-top: 4.5em; padding-bottom: 1em; padding-top: 1em; background: white;">
 
     <h3>Authentication</h3>
     <nz-card nzHoverable style="border-radius: 5px;">
         <nz-row>
             <div nz-col [nzSpan]="12" [nzOffset]=8>
-                <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+                <form *ngIf="isLoginForm" nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm(loginForm.value)">
                     <nz-form-item>
                         <nz-form-control nzErrorTip="Please input your username!">
                             <nz-input-group nzPrefixIcon="user">
-                                <input type="text" nz-input formControlName="userName" placeholder="Username" />
+                                <input type="text" nz-input formControlName="name" placeholder="Username" />
                             </nz-input-group>
                         </nz-form-control>
                     </nz-form-item>
@@ -29,11 +26,44 @@
                             <label nz-checkbox formControlName="remember">
                                 <span>Remember me</span>
                             </label>
-                            <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
+                            <a disabled class="login-form-forgot" class="login-form-forgot">Forgot password</a>
                             <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
                             Or
-                            <a>register now!</a>
+                            <a (click)="switchAuthentication();">register now!</a>
                         </nz-form-control>
+                    </nz-form-item>
+                </form>
+
+                <form *ngIf="!isLoginForm" nz-form [formGroup]="registerForm" class="login-form" (ngSubmit)="submitForm(registerForm.value)">
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Please input your username!">
+                            <nz-input-group nzPrefixIcon="user">
+                                <input type="text" nz-input formControlName="name" placeholder="Username" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Please input your email address!">
+                            <nz-input-group nzPrefixIcon="mail">
+                                <input type="text" nz-input formControlName="email" placeholder="Email" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Please input your Password!">
+                            <nz-input-group nzPrefixIcon="lock">
+                                <input type="password" nz-input formControlName="password" placeholder="Password" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-control>
+                            <button nz-button class="login-form-button" [nzType]="'primary'">Register</button>
+                        </nz-form-control>
+                        Or
+                        <a (click)="switchAuthentication();">login</a>
                     </nz-form-item>
                 </form>
             </div>

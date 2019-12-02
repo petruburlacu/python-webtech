@@ -72,38 +72,3 @@ def refresh_token():
 @jwt.unauthorized_loader
 def unauthorized(callback):
     return jsonify({'status': False, 'message': 'Missing Authorization Header'}), 401
-
-@app.route('/user', methods=['GET', 'POST', 'DELETE', 'PATCH'])
-@jwt_required
-def user():
-    if request.method == 'GET':
-        query = request.args
-        data = mongo.db.accounts.find_one(query)
-        return jsonify(data), 200
-
-    data = request.get_json()
-    if request.method == 'POST':
-        if data.get('name', None) is not None and data.get('email', None) is not None:
-            mongo.db.users.insert_one(data)
-            return jsonify({'status': True, 'message': 'User created successfully!'}), 200
-        else:
-            return jsonify({'status': False, 'message': 'Bad request parameters!'}), 400
-
-    if request.method == 'DELETE':
-        if data.get('email', None) is not None:
-            db_response = mongo.db.accounts.delete_one({'email': data['email']})
-            if db_response.deleted_count == 1:
-                response = {'status': True, 'message': 'record deleted'}
-            else:
-                response = {'status': True, 'message': 'no record found'}
-            return jsonify(response), 200
-        else:
-            return jsonify({'status': False, 'message': 'Bad request parameters!'}), 400
-
-    if request.method == 'PATCH':
-        if data.get('query', {}) != {}:
-            mongo.db.accounts.update_one(
-                data['query'], {'$set': data.get('payload', {})})
-            return jsonify({'status': True, 'message': 'record updated'}), 200
-        else:
-            return jsonify({'status': False, 'message': 'Bad request parameters!'}), 400

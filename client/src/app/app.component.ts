@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     this.navMenu = [
       {title: 'Home', action: () => this.router.navigate(['/home'])},
       {title: 'About', action: () => this.router.navigate(['/theme'])},
-      {title: 'About', action: () => this.router.navigate(['/login'])}
+      {title: 'Auth', action: () => this.router.navigate(['/login'])}
     ];
   }
 }
