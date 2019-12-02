@@ -18,6 +18,7 @@ import { FormAuthComponent } from './shared/components/form-auth/form-auth.compo
 import { LoginComponent } from './pages/login/login.component';
 import { RestrictedComponent } from './pages/restricted/restricted.component';
 import { ThemeComponent } from './pages/theme/theme.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ThemeComponent } from './pages/theme/theme.component';
     FormAuthComponent,
     LoginComponent,
     RestrictedComponent,
-    ThemeComponent
+    ThemeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@
   <nz-header class="layout-header" style="z-index: 1000;">
     <div class="logo"></div>
     <ul nz-menu class="layout-menu" nzTheme="dark" nzMode="horizontal">
-      <li *ngFor="let item of navMenu" nz-menu-item >{{item.title}}</li>
+      <li *ngFor="let item of navMenu" nz-menu-item (click)="item.action()">{{item.title}}</li>
     </ul>
   </nz-header>
   <nz-content class="layout-content">
@@ -11,10 +11,8 @@
       <nz-breadcrumb-item>List</nz-breadcrumb-item>
       <nz-breadcrumb-item>App</nz-breadcrumb-item>
     </nz-breadcrumb>
-    <div class="inner-content">
-      <router-outlet></router-outlet>
-      <h1>Send Nudes</h1>
-    </div>
+    
+    <router-outlet></router-outlet>
   </nz-content>
   <nz-footer class="layout-footer"><strong>WAPPLATE</strong> ©2019 Petru Marian Burlacu</nz-footer>
 </nz-layout>

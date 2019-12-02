@@ -1,4 +1,4 @@
 export interface MenuItem {
     title: string;
-    action: any;
+    action: () => any;
 }

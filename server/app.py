@@ -65,7 +65,14 @@ def get_report():
 
     print(google_report.json())
 
-    return jsonify({'report': google_report.json(), 'preview': preview_report.json()})
+    return jsonify({
+        'status': 'success',
+        'message': valid_url,
+        'responseObject': {
+            'googleReport': google_report.json(), 
+            'linkPreview': preview_report.json()
+        }
+    })
 
 @app.errorhandler(500)
 def server_error(e):

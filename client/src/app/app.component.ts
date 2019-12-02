@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from './shared/models/menu-item';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +12,17 @@ export class AppComponent implements OnInit {
   title = 'client';
   navMenu: MenuItem[] = [];
 
+  constructor(private router: Router) {}
+
   ngOnInit() {
     this.getNavMenu();
   }
 
   getNavMenu(): void {
     this.navMenu = [
-      {title: 'First Item', action: null},
-      {title: 'Second Item', action: null},
+      {title: 'Home', action: () => this.router.navigate(['/home'])},
+      {title: 'About', action: () => this.router.navigate(['/theme'])},
+      {title: 'About', action: () => this.router.navigate(['/login'])}
     ];
   }
 }
