@@ -38,16 +38,4 @@ flask_bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 app.json_encoder = JSONEncoder
 
-@app.errorhandler(500)
-def server_error(error):
-    ''' 500 error handler '''
-    LOG.error(error)
-    return make_response(jsonify({'error': 'An internal error occurred [main.py] %s'}), 500)
-
-@app.errorhandler(404)
-def not_found(error):
-    """ 404 error handler """
-    LOG.error(error)
-    return make_response(jsonify({'error': 'Not found'}), 404)
-
 from app.controllers import *
