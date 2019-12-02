@@ -1,5 +1,9 @@
+from __future__ import print_function
 import os
+import sys
+import requests
 import json
+import socket
 from flask import Flask, request, send_from_directory, render_template, make_response
 from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api
@@ -26,13 +30,46 @@ class Usernames(Resource):
 api.add_resource(Accounts, '/accounts')
 api.add_resource(Usernames, '/accounts/<account_id>') # Route_3
 
-@app.route("/api")
-def hello():
-    return "Send nudes!"
+
+@app.route('/api', methods=['POST'])
+def get_report():
+
+    print('Generating report for: ')
+    valid_url = 'http://testsafebrowsing.appspot.com/s/phishing.html'
+
+    # malicious_link = request.get_json()
+    malicious_link = 'graphicriver.com'
+    print(malicious_link)
+    google_api_key = "AIzaSyACYRvOdtNKzInQHA9cYEIFJFy_CFYJln8"
+    preview_api_key = "5de43a3f162bca6a55efeaa80dc7c7ac653bbc3da861c"
+
+
+    google_api_url = "https://safebrowsing.googleapis.com/v4/threatMatches:find"
+    preview_api_url = "http://api.linkpreview.net/?key=5de43a3f162bca6a55efeaa80dc7c7ac653bbc3da861c&q=" + malicious_link
+
+    payload = {'client': {'clientId': "mycompany", 'clientVersion': "0.1"},
+            'threatInfo': {'threatTypes': ["SOCIAL_ENGINEERING", "MALWARE"],
+                            'platformTypes': ["ANY_PLATFORM"],
+                            'threatEntryTypes': ["URL"],
+                            'threatEntries': [{'url': "textspeier.de"}]}}
+
+    params = {'key': google_api_key}
+    try:
+        ip_report = socket.getaddrinfo(malicious_link, None, socket.AF_INET6)
+        print(ip_report)
+    except:
+        print("Could not analyze the malicious URL ip")
+
+    google_report = requests.post(google_api_url, params=params, json=payload)
+    preview_report = requests.get(preview_api_url)
+
+    print(google_report.json())
+
+    return jsonify({'report': google_report.json(), 'preview': preview_report.json()})
 
 @app.errorhandler(500)
 def server_error(e):
-  return 'An internal error occurred [main.py] %s' % e, 500
+    return 'An internal error occurred [main.py] %s' % e, 500
 
 
 # === Angular Routing ===
