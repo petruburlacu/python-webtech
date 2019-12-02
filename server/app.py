@@ -4,7 +4,7 @@ import sys
 import requests
 import json
 import socket
-from flask import Flask, request, send_from_directory, render_template, make_response
+from flask import Flask, jsonify, abort, make_response, request, url_for, send_from_directory
 from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api
 from json import dumps
@@ -15,6 +15,8 @@ app = Flask(__name__)
 api = Api(app)
 
 CORS(app)
+
+PORT = os.environ.get('PORT')
 
 class Accounts(Resource):
     def get(self):
@@ -82,7 +84,7 @@ def server_error(e):
 # === Angular Routing ===
 __angular_paths = []
 __angular_default_path = "index.html"
-__root = "../client/dist/"
+__root = "dist/"
 
 for root, subdirs, files in os.walk(__root):
     if len(root) > len(__root):
@@ -99,7 +101,7 @@ def angular(path):
     if path not in __angular_paths:
         path = __angular_default_path
     
-    return send_from_directory('../client/dist/', path)
+    return send_from_directory('dist/', path)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=80)
