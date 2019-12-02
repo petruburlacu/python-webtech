@@ -64,26 +64,31 @@
 <div class="container" *ngIf="serverData">
     <div nz-row>
         <div nz-col [nzSpan]="6">
-            <nz-card *ngIf="displayImage" nzHoverable  style="width:240px" [nzCover]="prewviewImage">
-                    <nz-card-meta [nzTitle]="linkPreviewData.title" [nzDescription]="linkPreviewData.description"></nz-card-meta>
-                    <ng-template #prewviewImage>
-                            <img alt="example" src="https://elements-cover-images-0.imgix.net/b8257cc6-0d65-4b39-a919-7e0869f41fce?auto=compress%2Cformat&fit=max&w=1370&s=ac03af4d872b968ea2674aeca7d36242" crossorigin="anonymous" />
-                    </ng-template>
+            <nz-card *ngIf="displayImage" nzHoverable style="width:240px" [nzCover]="prewviewImage">
+                <nz-card-meta [nzTitle]="linkPreviewData.title" [nzDescription]="linkPreviewData.description"></nz-card-meta>
+                <ng-template #prewviewImage>
+                    <img alt="example" src="https://elements-cover-images-0.imgix.net/b8257cc6-0d65-4b39-a919-7e0869f41fce?auto=compress%2Cformat&fit=max&w=1370&s=ac03af4d872b968ea2674aeca7d36242"
+                        crossorigin="anonymous" />
+                </ng-template>
             </nz-card>
         </div>
         <div nz-col [nzSpan]="18">
             <nz-card>
-                    <nz-comment>
+                <nz-comment>
 
-                    </nz-comment>
+                </nz-comment>
             </nz-card>
         </div>
     </div>
 </div>
 
 <!-- *ngIf="serverData"  -->
-<nz-result nzStatus="success" nzTitle="No malicious threats detected!" nzSubTitle="URL: {{inputData}}">
-    <div nz-result-extra>
-        <button nz-button>Latest threats</button>
-    </div>
-</nz-result>
+<div class="container" *ngIf="serverData">
+    <nz-card [(nzLoading)]="isLoading">
+        <nz-result nzStatus="success" nzTitle="No malicious threats detected!" nzSubTitle="URL: {{inputData}}">
+            <div nz-result-extra>
+                <button nz-button>Latest threats</button>
+            </div>
+        </nz-result>
+    </nz-card>
+</div>
