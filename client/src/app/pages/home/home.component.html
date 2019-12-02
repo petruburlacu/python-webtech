@@ -1,44 +1,90 @@
-<div>
-    <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-        <input type="text" nz-input placeholder="Search for a website" />
-    </nz-input-group>
-    <ng-template #suffixButton>
-        <button nz-button nzType="primary" nzSize="large" nzSearch>Search</button>
+<nz-affix>
+    <div class="container" style="margin-top: 4.5em; padding-bottom: 1em; padding-top: 1em; background: white;">
+        <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+            <input [(ngModel)]="inputData" type="text" nz-input placeholder="Verify a link" [(disabled)]="isLoading" />
+        </nz-input-group>
+        <ng-template #suffixButton>
+            <button nz-button nzType="primary" nzSize="large" nzSearch (click)="searchThreat();" [(disabled)]="isLoading">Search</button>
+        </ng-template>
+        <h3>{{inputData}}</h3>
+    </div>
+</nz-affix>
+
+<!-- <nz-empty [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+    <ng-template #contentTpl>
+        <span> Use the <a href="#trigger-tooltip" >searchbox</a> </span>
     </ng-template>
+    <ng-template #footerTpl>
+        <button nz-button nzType="dashed" nzValue="large" (click)="null">Learn more</button>
+    </ng-template>
+</nz-empty> -->
+
+<!-- *ngIf="serverData"  -->
+
+<div class="container" style="margin-top: 2em;">
+    <nz-spin nzTip="Generating report..." [nzSpinning]="isLoading" [nzDelay]="200">
+        <nz-card [nzCover]="coverTemplate" [nzBordered]="true">
+            <nz-card-meta nzTitle="Card title" nzDescription="This is the description" [nzAvatar]="avatarTemplate"></nz-card-meta>
+        </nz-card>
+        <ng-template #avatarTemplate>
+            <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+        </ng-template>
+        <ng-template #coverTemplate>
+            <nz-result nzStatus="500" nzTitle="Malicious Link" nzSubTitle="We found something">
+                <div nz-result-extra>
+                    <button nz-button nzType="primary">Get the report</button>
+                </div>
+            </nz-result>
+        </ng-template>
+        <ng-template #actionSetting>
+            <i nz-icon nzType="setting"></i>
+        </ng-template>
+        <ng-template #actionEdit>
+            <i nz-icon nzType="edit"></i>
+        </ng-template>
+        <ng-template #actionEllipsis>
+            <i nz-icon nzType="ellipsis"></i>
+        </ng-template>
+    </nz-spin>
 </div>
 
-<nz-descriptions nzTitle="Responsive Descriptions" nzBordered
-    [nzColumn]="{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }">
-    <nz-descriptions-item nzTitle="Product">
-        Cloud Database
-    </nz-descriptions-item>
-    <nz-descriptions-item nzTitle="Billing">Prepaid</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="time">18:00:00</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="Amount">$80.00</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="Discount">$20.00</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="Official">$60.00</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="Config Info">
-        Data disk type: MongoDB
-        <br />
-        Database version: 3.4
-        <br />
-        Package: dds.mongo.mid
-        <br />
-        Storage space: 10 GB
-        <br />
-        Replication_factor:3
-        <br />
-        Region: East China 1
-        <br />
-    </nz-descriptions-item>
-</nz-descriptions>
+<div class="container">
+    <nz-divider nzText="Report result"></nz-divider>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae
+        sunt a te dicta? Refert tamen, quo modo.
+    </p>
 
 
-<nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate" class="m-1">
-    <nz-card-meta nzTitle="Fonts, Logos & Icons from GraphicRiver"
-        nzDescription="Discover 754,568 Fonts, Logos, Icons and Graphics on GraphicRiver. Buy Graphics and Design Templates from only $2 from our global Community of Graphic Designers.">
-    </nz-card-meta>
-</nz-card>
-<ng-template #coverTemplate>
-    <img alt="example" src="https://assets.shopfront.envato-static.com/images/meta/logos/graphicriver.png" />
-</ng-template>
+    <nz-badge nzStatus="success"></nz-badge>
+    <nz-badge nzStatus="error"></nz-badge>
+    <nz-badge nzStatus="warning"></nz-badge>
+</div>
+
+<div class="container" *ngIf="serverData">
+    <div nz-row>
+        <div nz-col [nzSpan]="6">
+            <nz-card *ngIf="displayImage" nzHoverable  style="width:240px" [nzCover]="prewviewImage">
+                    <nz-card-meta [nzTitle]="linkPreviewData.title" [nzDescription]="linkPreviewData.description"></nz-card-meta>
+                    <ng-template #prewviewImage>
+                            <img alt="example" src="https://elements-cover-images-0.imgix.net/b8257cc6-0d65-4b39-a919-7e0869f41fce?auto=compress%2Cformat&fit=max&w=1370&s=ac03af4d872b968ea2674aeca7d36242" crossorigin="anonymous" />
+                    </ng-template>
+            </nz-card>
+        </div>
+        <div nz-col [nzSpan]="18">
+            <nz-card>
+                    <nz-comment>
+                        
+                    </nz-comment>
+            </nz-card>
+        </div>
+    </div>
+</div>
+
+<!-- *ngIf="serverData"  -->
+<nz-result nzStatus="success" nzTitle="Successfully Purchased Cloud Server ECS!" nzSubTitle="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait.">
+    <div nz-result-extra>
+        <button nz-button nzType="primary">Go Console</button>
+        <button nz-button>Buy Again</button>
+    </div>
+</nz-result>

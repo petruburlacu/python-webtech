@@ -2,7 +2,6 @@
 import os
 import datetime
 import sys
-import requests
 import json
 import socket
 from flask import Flask, jsonify, abort, make_response, request, url_for, send_from_directory

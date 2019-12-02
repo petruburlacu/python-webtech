@@ -146,3 +146,8 @@ def get_report():
             'linkPreview': preview_report.json()
         }
     })
+
+
+
+valid_url = 'http://testsafebrowsing.appspot.com/s/phishing.html'
+

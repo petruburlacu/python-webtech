@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
+import { ThreatDetectionService } from 'app/core/services/threat-detection.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-restricted',
@@ -10,25 +12,10 @@ import { HttpClient } from '@angular/common/http';
 export class RestrictedComponent implements OnInit {
 
   serverData: JSON;
-  employeeData: JSON;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
-  }
-
-  getConnection() {
-    this.httpClient.get('http://localhost:5000/').subscribe(data => {
-      this.serverData = data as JSON;
-      console.log(this.serverData);
-    })
-  }
-
-  getAllAccounts() {
-    this.httpClient.get('http://localhost:5000/accounts').subscribe(data => {
-      this.employeeData = data as JSON;
-      console.log(this.employeeData);
-    })
   }
 
 }

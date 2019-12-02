@@ -1,4 +1,5 @@
 import os
+import requests
 from flask import request, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity)
 from app import app, mongo, flask_bcrypt, jwt
@@ -11,6 +12,15 @@ LOG = logger.get_root_logger(
 
 # Followed DUO security API structure: https://duo.com/docs/accountsapi
 # Reference tutorial: https://medium.com/@riken.mehta/full-stack-tutorial-3-flask-jwt-e759d2ee5727
+
+@app.route('/api/info', methods=['GET'])
+def informations():
+    ''' Accounts list '''
+    return jsonify({
+        'status': 'success',
+        'message': 'Accounts accessed successfully!',
+        'responseObject': {}
+    }), 200
 
 @app.route('/api/accounts/account/create', methods=['POST'])
 def register():

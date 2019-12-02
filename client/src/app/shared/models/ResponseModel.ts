@@ -1,5 +1,5 @@
 export interface ResponseModel {
-    status: string;
+    status: boolean;
     message: string;
     responseObject: any;
 }

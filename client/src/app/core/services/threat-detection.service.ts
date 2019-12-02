@@ -14,19 +14,8 @@ export class ThreatDetectionService {
 
   constructor(private http: HttpClient) { }
 
-//   {
-//     "preview": {
-//         "description": "description",
-//         "image": "graphicriver.png",
-//         "title": "Title,
-//         "url": "url.com"
-//     },
-//     "report": {}
-// }
-
-
-  scanURL(request): Observable<ResponseModel> {
-    return this.http.post(this.apiReport, request)
-    .map((response: ResponseModel) => response).catch((err: any) => Observable.throw(err.error || 'error'));
+  scanURL(inputData): Observable<ResponseModel> {
+    return this.http.post('http://127.0.0.1:5000/api/scan', { url: inputData })
+      .map((response: ResponseModel) => response).catch((err: any) => Observable.throw(err.error || 'error'));
   }
 }
