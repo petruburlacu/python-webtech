@@ -6,7 +6,7 @@
                     nz-input placeholder="Verify a link" [(disabled)]="isLoading" />
             </nz-input-group>
             <ng-template #suffixButton>
-                <button nz-button nzType="primary" nzSize="large" nzSearch (click)="mockSearch();" [nzLoading]="isLoading"
+                <button nz-button nzType="primary" nzSize="large" nzSearch (click)="searchThreat();" [nzLoading]="isLoading"
                     [(disabled)]="isLoading">Search</button>
             </ng-template>
             <h3>{{inputData}}</h3>
