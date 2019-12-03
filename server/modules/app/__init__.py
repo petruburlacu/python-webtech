@@ -56,7 +56,8 @@ def not_found(error):
     """ 404 error handler """
     LOG.error(error)
     return make_response(jsonify({'error': 'Not found'}), 404)
-    
+
+# Serve angular built files for production
 @app.route('/')
 def index():
     """Connection established"""

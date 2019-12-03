@@ -11,7 +11,6 @@ LOG = logger.get_root_logger(
     __name__, filename=os.path.join(ROOT_PATH, 'output.log'))
 
 # Followed DUO security API structure: https://duo.com/docs/accountsapi
-# Reference tutorial: https://medium.com/@riken.mehta/full-stack-tutorial-3-flask-jwt-e759d2ee5727
 
 @app.route('/api/accounts/account/create', methods=['POST'])
 def register():
