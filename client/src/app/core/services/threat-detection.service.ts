@@ -11,7 +11,7 @@ import 'rxjs/add/operator/catch';
 export class ThreatDetectionService {
 
   // TODO: Create a constants class
-  baseUrl = 'http://127.0.0.1:8080';
+  baseUrl = window.location.origin;
   scanUrl = '/api/scan';
   threatReport = '/api/threats';
 

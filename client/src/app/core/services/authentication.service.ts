@@ -9,8 +9,8 @@ import 'rxjs/add/operator/catch';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
-  baseURL = 'http://localhost:8080';
+  
+  baseURL = window.location.origin;
   accountCreate = '/api/accounts/account/create';
   accountAuthenticate = '/api/accounts/account/authentication';
   accountTokenRefresh = '/api/accounts/account/refresh_token';
