@@ -1,41 +1,15 @@
 <nz-layout class="layout">
   <nz-header class="layout-header header-main" style="z-index: 1000; background-color: #24292e;">
-    <!-- <div class="logo"></div>
-    <ul nz-menu class="layout-menu" nzTheme="dark" nzMode="horizontal">
-      <li *ngFor="let item of navMenu" nz-menu-item (click)="item.action()">{{item.title}}</li>
-    </ul> -->
-    <nav class="navbar navbar-expand-lg container header-main" style="height: 64px; background-color: #24292e;">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <nav class="navbar navbar-expand-lg container header-main" style="max-height: 64px; background-color: #24292e; line-height: 64;">
+        <a style="color: #fff; line-height: 64; font-size: 1.2rem; margin-right: 0.5em;" ><i nz-icon nzType="github" nzTheme="outline" style="vertical-align: 0; line-height: 64px; margin-right: 0.5em;"></i><span>MALTHREAT</span></a>
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto" style="color: white;">
-            <li class="nav-item active" >
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" style="color: white;">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
+          <ul nz-menu class="navbar-nav mr-auto" nzTheme="dark" nzMode="horizontal" style="background-color: transparent;">
+            <li class="nav-item" *ngFor="let item of navMenu" nz-menu-item (click)="item.action()"> <span class="nav-link">{{item.title}}</span></li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" disabled aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" disabled>Search</button>
           </form>
         </div>
       </nav>
@@ -43,7 +17,7 @@
   <nz-content class="layout-content">
     <router-outlet></router-outlet>
   </nz-content>
-  <nz-footer class="layout-footer"><strong>WAPPLATE</strong> ©2019 Petru Marian Burlacu</nz-footer>
+  <nz-footer class="layout-footer"><a style="color: rgba(0, 0, 0, 0.65);" href="https://github.com/petruburlacu/wapplate"><strong >WAPPLATE</strong></a> ©2019 Petru Marian Burlacu</nz-footer>
 </nz-layout>
 
 

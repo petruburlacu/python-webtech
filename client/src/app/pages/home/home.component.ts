@@ -3,7 +3,7 @@ import { ThreatDetectionService } from 'app/core/services/threat-detection.servi
 import { Subject } from 'rxjs';
 import { map, tap, takeUntil } from 'rxjs/operators';
 import { ResponseModel } from 'app/shared/models/ResponseModel';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -19,12 +19,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   googleReporData = null;
   inputData = '';
   isLoading = false;
+  isMalicious = false;
   displayImage = new Image();
 
-  constructor(private scanService: ThreatDetectionService, private message: NzMessageService, private sanitizer: DomSanitizer) { }
+  constructor(private scanService: ThreatDetectionService, private notification: NzNotificationService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.testData();
   }
 
   ngOnDestroy() {
@@ -38,52 +38,31 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe((response: ResponseModel) => {
         console.log(response);
         if (response.status) {
-          this.message.success('Report available');
+          this.createNotification('success', 'URL Scanned', 'A report has been generated');
           this.serverData = response;
           this.linkPreviewData = response.responseObject.linkPreview;
           this.googleReporData = response.responseObject.googleReport;
+          console.log(this.googleReporData);
         } else {
-          this.message.warning('Something went wrong');
+          this.createNotification('warning', 'Warning', 'Something went wrong');
         }
       }, error => {
         console.log(error);
-        this.message.error('Request failed');
+        this.createNotification('error', 'Request failed', error);
       }, () => {
         this.isLoading = false;
       });
   }
 
+  inputKeyPress(event) {
+    if (event.which === 13) {
+      this.searchThreat();
+    }
+  }
+
+  createNotification(type: string, title: string, description: string): void {
+    this.notification.create(type, title, description);
+  }
   // Audit: if retrieved audit is empty => use predefined list
   // Audit: if retrieved audit not empty => add to the predifined list the new entries
-
-
-  testData() {
-    this.serverData = {
-      "message": "Success",
-      "responseObject": {
-        "googleReport": {
-          "matches": [
-            {
-              "cacheDuration": "300s",
-              "platformType": "ANY_PLATFORM",
-              "threat": {
-                "url": "http://testsafebrowsing.appspot.com/s/phishing.html"
-              },
-              "threatEntryType": "URL",
-              "threatType": "SOCIAL_ENGINEERING"
-            }
-          ]
-        },
-        "linkPreview": {
-          "description": "Forbidden by robots.txt",
-          "error": 423,
-          "image": '',
-          "url": "websiteurl.com"
-        }
-      },
-      "status": true
-    };
-    this.linkPreviewData = this.serverData.responseObject.linkPreview;
-    this.googleReporData = this.serverData.responseObject.googleReport;
-  }
 }

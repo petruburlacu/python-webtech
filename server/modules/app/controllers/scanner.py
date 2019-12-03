@@ -8,6 +8,41 @@ import logger
 ROOT_PATH = os.environ.get('ROOT_PATH')
 LOG = logger.get_root_logger(__name__, filename=os.path.join(ROOT_PATH, 'output.log'))
 
+g_mock_report = {
+          "matches": [
+            {
+              "cacheDuration": "300s",
+              "platformType": "ANY_PLATFORM",
+              "threat": {
+                "url": "http://testsafebrowsing.appspot.com/s/phishing.html"
+              },
+              "threatEntryType": "URL",
+              "threatType": "SOCIAL_ENGINEERING"
+            }
+          ]
+        }
+
+lp_mock_report = {
+          "description": "Forbidden by robots.txt",
+          "error": 423,
+          "image": '',
+          "url": "websiteurl.com"
+        }
+
+@app.route('/api/test-scan', methods=['POST'])
+def test_report():
+    ''' Test report '''
+    request_data = validate_request(request.get_json())
+    # Validate request_data is valid 
+    if request_data['status']:
+        request_data = request_data['data']
+        LOG.info(request_data)
+        malicious_link = request_data['url']
+
+        return jsonify({'status': True, 'message': 'Success', 'responseObject': { 'googleReport': {}, 'linkPreview': lp_mock_report}}), 200
+    else:
+        return jsonify({'status': False, 'message': 'Bad request!', 'responseObject': { 'request': request.get_json(), 'response': request_data}}), 400
+
 @app.route('/api/scan', methods=['POST'])
 def get_report():
     ''' Producing report '''

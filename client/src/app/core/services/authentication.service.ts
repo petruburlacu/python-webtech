@@ -10,24 +10,35 @@ import 'rxjs/add/operator/catch';
 })
 export class AuthenticationService {
 
+  baseURL = 'http://localhost:5000';
   accountCreate = '/api/accounts/account/create';
   accountAuthenticate = '/api/accounts/account/authentication';
   accountTokenRefresh = '/api/accounts/account/refresh_token';
 
+  isAuthenticated = false;
+
   constructor(private http: HttpClient) { }
 
   accountRegister(inputData): Observable<ResponseModel> {
-    return this.http.post('http://127.0.0.1:5000/api/scan', { url: inputData })
+    return this.http.post(this.baseURL + this.accountCreate, inputData)
       .map((response: ResponseModel) => response).catch((err: any) => Observable.throw(err.error || 'error'));
   }
 
   accountLogin(inputData): Observable<ResponseModel> {
-    return this.http.post('http://127.0.0.1:5000/api/scan', { url: inputData })
+    return this.http.post(this.baseURL + this.accountLogin, inputData)
       .map((response: ResponseModel) => response).catch((err: any) => Observable.throw(err.error || 'error'));
   }
 
   accountSessionRefresh(inputData): Observable<ResponseModel> {
-    return this.http.post('http://127.0.0.1:5000/api/scan', { url: inputData })
+    return this.http.post(this.baseURL + this.accountTokenRefresh, inputData)
       .map((response: ResponseModel) => response).catch((err: any) => Observable.throw(err.error || 'error'));
+  }
+
+  checkAuthentication() {
+    if(this.isAuthenticated) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

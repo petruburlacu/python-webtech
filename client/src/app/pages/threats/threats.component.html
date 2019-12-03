@@ -1,0 +1,15 @@
+<nz-card style="margin-top: 2em;">
+    <nz-table [nzLoading]="isLoading || !serverData" [nzData]="serverData" [nzScroll]="{ x: '1000', y: '60vh' }"
+        [nzFrontPagination]="false" [nzShowPagination]="false">
+        <thead>
+            <tr>
+                <th>Threat</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of serverData">
+                <td>{{ data.url }}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

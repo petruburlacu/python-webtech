@@ -10,12 +10,20 @@ import 'rxjs/add/operator/catch';
 })
 export class ThreatDetectionService {
 
-  apiReport = '/api';
+  // TODO: Create a constants class
+  baseUrl = 'http://127.0.0.1:5000';
+  scanUrl = '/api/scan';
+  threatReport = '/api/threats';
 
   constructor(private http: HttpClient) { }
 
   scanURL(inputData): Observable<ResponseModel> {
-    return this.http.post('http://127.0.0.1:5000/api/scan', { url: inputData })
+    return this.http.post(this.baseUrl + this.scanUrl, { url: inputData })
+      .map((response: ResponseModel) => response).catch((err: any) => Observable.throw(err.error || 'error'));
+  }
+
+  getThreats(): Observable<ResponseModel> {
+    return this.http.get(this.baseUrl + this.threatReport)
       .map((response: ResponseModel) => response).catch((err: any) => Observable.throw(err.error || 'error'));
   }
 }

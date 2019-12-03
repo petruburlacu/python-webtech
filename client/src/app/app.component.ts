@@ -21,8 +21,9 @@ export class AppComponent implements OnInit {
   getNavMenu(): void {
     this.navMenu = [
       {title: 'Home', action: () => this.router.navigate(['/home'])},
-      {title: 'About', action: () => this.router.navigate(['/theme'])},
-      {title: 'Auth', action: () => this.router.navigate(['/login'])}
+      {title: 'Authentication', action: () => this.router.navigate(['/login'])},
+      {title: 'Latest Threats', action: () => this.router.navigate(['/threats'])},
+      {title: 'About', action: () => this.router.navigate(['/theme'])}
     ];
   }
 }

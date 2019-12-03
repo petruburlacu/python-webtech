@@ -13,15 +13,6 @@ LOG = logger.get_root_logger(
 # Followed DUO security API structure: https://duo.com/docs/accountsapi
 # Reference tutorial: https://medium.com/@riken.mehta/full-stack-tutorial-3-flask-jwt-e759d2ee5727
 
-@app.route('/api/info', methods=['GET'])
-def informations():
-    ''' Accounts list '''
-    return jsonify({
-        'status': 'success',
-        'message': 'Accounts accessed successfully!',
-        'responseObject': {}
-    }), 200
-
 @app.route('/api/accounts/account/create', methods=['POST'])
 def register():
     ''' Account registration '''

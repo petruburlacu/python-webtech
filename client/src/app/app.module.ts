@@ -17,8 +17,8 @@ import { AppComponent } from './app.component';
 import { FormAuthComponent } from './shared/components/form-auth/form-auth.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RestrictedComponent } from './pages/restricted/restricted.component';
-import { ThemeComponent } from './pages/theme/theme.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ThreatsComponent } from './pages/threats/threats.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +26,8 @@ import { HomeComponent } from './pages/home/home.component';
     FormAuthComponent,
     LoginComponent,
     RestrictedComponent,
-    ThemeComponent,
-    HomeComponent
+    HomeComponent,
+    ThreatsComponent
   ],
   imports: [
     BrowserModule,
