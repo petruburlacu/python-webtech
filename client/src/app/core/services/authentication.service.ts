@@ -10,32 +10,41 @@ import 'rxjs/add/operator/catch';
 })
 export class AuthenticationService {
 
-  baseURL = 'http://localhost:5000';
+  baseURL = 'http://localhost:8080';
   accountCreate = '/api/accounts/account/create';
   accountAuthenticate = '/api/accounts/account/authentication';
   accountTokenRefresh = '/api/accounts/account/refresh_token';
 
   isAuthenticated = false;
+  accountDetails = null;
 
   constructor(private http: HttpClient) { }
 
-  accountRegister(inputData): Observable<ResponseModel> {
+  accountRegister(inputData): Observable<any> {
     return this.http.post(this.baseURL + this.accountCreate, inputData)
       .map((response: ResponseModel) => response).catch((err: any) => Observable.throw(err.error || 'error'));
   }
 
-  accountLogin(inputData): Observable<ResponseModel> {
-    return this.http.post(this.baseURL + this.accountLogin, inputData)
-      .map((response: ResponseModel) => response).catch((err: any) => Observable.throw(err.error || 'error'));
+  accountLogin(inputData): Observable<any> {
+    return this.http.post(this.baseURL + this.accountAuthenticate, inputData)
+      .map((response: any) => response).catch((err: any) => Observable.throw(err.error || 'error'));
   }
 
-  accountSessionRefresh(inputData): Observable<ResponseModel> {
+  accountSessionRefresh(inputData): Observable<any> {
     return this.http.post(this.baseURL + this.accountTokenRefresh, inputData)
-      .map((response: ResponseModel) => response).catch((err: any) => Observable.throw(err.error || 'error'));
+      .map((response: any) => response).catch((err: any) => Observable.throw(err.error || 'error'));
   }
 
+  setAuthenticationStatus(status: boolean, details: any) {
+    this.isAuthenticated = status;
+    this.accountDetails = details;
+  }
+
+  getAccountDetails() {
+    return this.accountDetails;
+  }
   checkAuthentication() {
-    if(this.isAuthenticated) {
+    if (this.isAuthenticated) {
       return true;
     } else {
       return false;

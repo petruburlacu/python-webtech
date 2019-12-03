@@ -4,16 +4,13 @@
 ## Clean Cached images, containers, volumes and networks
 # docker system prune -a
 
-### Deploy with uWSGI: https://www.digitalocean.com/community/tutorials/how-to-build-and-deploy-a-flask-application-using-docker-on-ubuntu-18-04
-
-
 version: '3.5'
 services:
   server:
     build: ./server
     container_name: "server"
     ports:
-      - "5000:5000"
+      - "8080:8080"
     depends_on:
       - mongodb
     links:

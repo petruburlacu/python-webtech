@@ -10,7 +10,7 @@
                     <nz-form-item>
                         <nz-form-control nzErrorTip="Please input your username!">
                             <nz-input-group nzPrefixIcon="user">
-                                <input type="text" nz-input formControlName="name" placeholder="Username" />
+                                <input type="text" nz-input formControlName="email" placeholder="Email" />
                             </nz-input-group>
                         </nz-form-control>
                     </nz-form-item>
@@ -25,7 +25,8 @@
                         <nz-form-control>
                             <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
                         </nz-form-control>
-                        <a class="login-form-forgot" (click)="switchAuthentication();" class="login-form-forgot">Or register now!</a>
+                        <a class="login-form-forgot" (click)="switchAuthentication();" class="login-form-forgot">Or
+                            register now!</a>
                     </nz-form-item>
                 </form>
 
@@ -66,11 +67,18 @@
     </nz-card>
 
     <nz-card *ngIf="isAuth" nzHoverable style="border-radius: 5px;" [nzLoading]="isLoading">
-            <nz-result [nzIcon]="'smile-twotone'" [nzTitle]="'You are authenticated!'">
-                    <div nz-result-extra>
-                      <button nz-button nzType="primary"  routerLink="/home">Home</button>
-                    </div>
-                  </nz-result>
+        <nz-result [nzIcon]="'smile-twotone'" [nzTitle]="'You are authenticated!'">
+            <div nz-result-extra>
+                <button *ngIf="!isAccountVisible" nz-button nzType="primary" (click)="getAccountInfo()">Get account
+                    details</button>
+
+                <div class="container" style="margin-top: 1em;">
+                    <input nz-input style="margin: 0.5em;" placeholder="Email" [(ngModel)]="accountEmail" [disabled]="true" />
+                    <input nz-input style="margin: 0.5em;" placeholder="Name" [(ngModel)]="accountName" [disabled]="true" />
+                    <input nz-input style="margin: 0.5em;" placeholder="Session token" [(ngModel)]="accountToken" [disabled]="true" />
+                </div>
+            </div>
+        </nz-result>
     </nz-card>
 
 </div>

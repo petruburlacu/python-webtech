@@ -5,6 +5,7 @@ import { map, tap, takeUntil } from 'rxjs/operators';
 import { ResponseModel } from 'app/shared/models/ResponseModel';
 import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AuthenticationService } from 'app/core/services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   isMalicious = false;
   displayImage = new Image();
 
-  constructor(private scanService: ThreatDetectionService, private notification: NzNotificationService, private sanitizer: DomSanitizer) { }
+  constructor(private scanService: ThreatDetectionService, private notification: NzNotificationService, private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -46,9 +47,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           this.createNotification('warning', 'Warning', 'Something went wrong');
         }
+        this.isLoading = false;
       }, error => {
         console.log(error);
-        this.createNotification('error', 'Request failed', error);
+        this.createNotification('error', 'Request failed', 'Something went wrong and the request failed');
+        this.isLoading = false;
       }, () => {
         this.isLoading = false;
       });

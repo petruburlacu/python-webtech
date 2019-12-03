@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
       {title: 'Home', action: () => this.router.navigate(['/home'])},
       {title: 'Authentication', action: () => this.router.navigate(['/login'])},
       {title: 'Latest Threats', action: () => this.router.navigate(['/threats'])},
-      {title: 'About', action: () => this.router.navigate(['/theme'])}
+      {title: 'About', action: () => this.router.navigate(['/about'])}
     ];
   }
 }

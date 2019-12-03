@@ -14,8 +14,12 @@ export class LoginComponent implements OnInit {
   registerForm: FormGroup;
   isLoginForm = true;
   isLoading = false;
-  isRegistered = false;
   isAuth = false;
+  accountDetails = null;
+  accountEmail = '';
+  accountName = '';
+  accountToken = '';
+  isAccountVisible = false;
 
   constructor(private fb: FormBuilder, private authService: AuthenticationService, private notification: NzNotificationService) { }
 
@@ -26,37 +30,48 @@ export class LoginComponent implements OnInit {
   }
 
   submitLoginForm(input): void {
-    console.log(input);
     this.isLoading = true;
+    console.log(input);
     this.authService.accountLogin(input).subscribe((response) => {
-      this.createNotification('success', 'Authentication', 'Account authenticated');
-      console.log(response);
-      this.isAuth = true;
+      this.isAuth = response.status;
+      if (this.isAuth) {
+        this.createNotification('success', 'Session', 'Account authenticated');
+        this.accountDetails = response.data;
+        this.authService.setAuthenticationStatus(response.status, this.accountDetails);
+      } else {
+        this.createNotification('warning', 'Session', response.message);
+      }
+      this.isLoading = false;
     }, error => {
       console.log(error);
-      this.createNotification('error', 'Request failed', error);
-    }, () => {
+      this.createNotification('error', 'Request failed', 'Could not authenticate');
       this.isLoading = false;
     });
   }
 
   submitRegisterForm(input): void {
-    console.log(input);
     this.isLoading = true;
+    console.log(input);
     this.authService.accountRegister(input).subscribe((response) => {
-      this.createNotification('success', 'Authentication', 'Account created');
-      console.log(response);
+      if (response.status) {
+        this.createNotification('success', 'Registration', 'Account created successfuly!');
+        this.isLoginForm = true;
+      } else {
+        this.createNotification('error', 'Request failed', 'Could not register the account');
+      }
+      this.isLoginForm = true;
+      this.isLoading = false;
     }, error => {
       console.log(error);
       this.createNotification('error', 'Request failed', error);
-    }, () => {
       this.isLoading = false;
+      this.isLoginForm = true;
     });
   }
 
   initializeForms(): void {
     this.loginForm = this.fb.group({
-      name: [null, [Validators.required]],
+      email: [null, [Validators.required]],
       password: [null, [Validators.required]]
     });
 
@@ -65,6 +80,14 @@ export class LoginComponent implements OnInit {
       email: [null, [Validators.required]],
       password: [null, [Validators.required]]
     });
+  }
+
+  getAccountInfo(): void {
+    this.isAccountVisible = true;
+    this.accountDetails = this.authService.getAccountDetails();
+    this.accountEmail = this.accountDetails.email;
+    this.accountName = this.accountDetails.name;
+    this.accountToken = this.accountDetails.token;
   }
 
   switchAuthentication(): void {
