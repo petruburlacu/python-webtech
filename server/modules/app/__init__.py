@@ -3,7 +3,7 @@ import json
 import datetime
 import requests
 from bson.objectid import ObjectId
-from flask import Flask
+from flask import Flask, jsonify, abort, make_response, request, url_for, send_from_directory, render_template
 from flask_pymongo import PyMongo
 from flask_jwt_extended import JWTManager
 # Used for password encryption before saving to database => similar to NodeJs bycrypt
@@ -38,5 +38,29 @@ flask_bcrypt = Bcrypt(app)
 
 jwt = JWTManager(app)
 app.json_encoder = JSONEncoder
+
+import logger
+
+ROOT_PATH = os.environ.get('ROOT_PATH')
+LOG = logger.get_root_logger(
+    __name__, filename=os.path.join(ROOT_PATH, 'output.log'))
+
+@app.errorhandler(500)
+def server_error(error):
+    ''' 500 error handler '''
+    LOG.error(error)
+    return make_response(jsonify({'error': 'An internal error occurred'}), 500)
+
+@app.errorhandler(404)
+def not_found(error):
+    """ 404 error handler """
+    LOG.error(error)
+    return make_response(jsonify({'error': 'Not found'}), 404)
+    
+@app.route('/')
+def index():
+    """Connection established"""
+    LOG.info('base URL called')
+    return render_template('index.html')
 
 from app.controllers import *
